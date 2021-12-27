@@ -1,4 +1,8 @@
 function viewPrintTone(tone,unshi){
+  const DEFAULT_KEY = 37;
+  const NEXT = 2;
+  const SELECT = document.getElementById("select-key").value;
+
   toneArray = tone.split(/\n/).map(function(row){
     return row.split(',');
   });
@@ -6,8 +10,17 @@ function viewPrintTone(tone,unshi){
   unshiArray = unshi.split(/\n/).map(function(row){
     return row.split(',');
   });
+  unshiArray.shift();
+  //console.log(toneArray);
 
-  console.log(toneArray);
+  var key = DEFAULT_KEY + parseInt(SELECT);
+  for (let step = 0; step < unshiArray.length; step++){
+    
+    console.log(unshiArray[step]);
+    console.log(toneArray[key]);
+    key = parseInt(key) + parseInt(unshiArray[step][2]);
+    
+  }
 
   return null;
 }
@@ -32,8 +45,8 @@ $(function(){
           $.ajax(unshi),
         ).done(function(res1,res2){
           viewPrintTone(res1[0],res2[0]);
-          console.log(res1[0]);
-          console.log(res2[0]);
+          //console.log(res1[0]);
+          //console.log(res2[0]);
         }).fail(function(){
           alert("エラーが発生しました。しばらくお待ち下さい");
         });
